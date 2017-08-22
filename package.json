@@ -11,7 +11,7 @@
     "express": "^4.15.4"
   },
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon server.js",
     "test": "node_modules/.bin/mocha"
   },
   "devDependencies": {
