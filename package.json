@@ -2,7 +2,7 @@
   "name": "dwserver",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "dw",
+  "author": "david wieczorek",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.16.2",
