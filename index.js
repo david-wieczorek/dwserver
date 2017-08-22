@@ -11,8 +11,6 @@ app.use(helmet(), cors());
 app.get('/', home.homeTest);
 app.get('/test', test.requestTest);
 
-
-
 app.listen(config.port, function () {
   console.log('Example app listening on port: ' + config.port);
 });
