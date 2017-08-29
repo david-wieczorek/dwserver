@@ -10,7 +10,7 @@ var mongoClient = require("mongodb").MongoClient;
 app.use(helmet(), cors());
 
 // Paramètres de connexion
-var urlDB = "mongodb://localhost/dwdb";
+var urlDB = config.mongodb.url;
 
 // Connexion au serveur avec la méthode connect
 mongoClient.connect(urlDB, function(err, db) {
