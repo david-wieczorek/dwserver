@@ -1,3 +1,3 @@
 # dwserver
 
-A node back server to test DB and back dev
+Test node server with mongoDB connection
