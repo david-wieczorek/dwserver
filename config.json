@@ -1,4 +1,7 @@
 {
-  "server": "localhost",
-  "port": 9000
+    "server": "localhost",
+    "port": 9000,
+    "mongodb": {
+        "url": "mongodb://localhost/dwdb"
+    }
 }
