@@ -1,0 +1,4 @@
+{
+    "mongodburl": "mongodb://localhost/dwdb",
+    "collection": "articles"
+}
