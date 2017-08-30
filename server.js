@@ -1,29 +1,18 @@
-var express = require("express");
-var app = express();
-var helmet = require("helmet");
-var cors = require("cors");
-var home = require("./routes/home");
-var test = require("./routes/test");
-var config = require("./config");
-var mongoClient = require("mongodb").MongoClient;
+const express = require("express"),
+  app = express(),
+  router = express.Router(),
+  helmet = require("helmet"),
+  cors = require("cors"),
+  urlencode = require("urlencode"),
+  bodyParser = require("body-parser"),
+  config = require("./config"),
+  articles = require("./routes/articles");
 
-app.use(helmet(), cors());
+app.use(helmet(), cors(), bodyParser.urlencoded({ extended: true }));
 
-// Paramètres de connexion
-var urlDB = config.mongodb.url;
+// Articles Route
+app.use("/articles", articles);
 
-// Connexion au serveur avec la méthode connect
-mongoClient.connect(urlDB, function(err, db) {
-  if (err) return console.error("Connection failed", err);
-  console.log("Connection successful on ", urlDB);
-
-  // Fermeture de la connexion
-  db.close();
-});
-
-app.get("/", home.homeTest);
-app.get("/test", test.requestTest);
-
-app.listen(config.port, function() {
+app.listen(config.port, () => {
   console.log("Example app listening on port: " + config.port);
 });
