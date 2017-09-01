@@ -1,24 +1,46 @@
 const mongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
-const config = require("./config");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-// DB Config
-const urlDB = config.mongodburl;
-const collectionDB = config.collection;
+const articleSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true
+    },
+    age: Number,
+    datetime: {
+      type: Date,
+      default: Date.now
+    },
+    id: {
+      type: String,
+      getter: function(val) {
+        return this._id.toString();
+      },
+      unique: true
+    }
+  },
+  {
+    id: false // disables the creation of the virtual "id" property
+  }
+);
+
+const Article = mongoose.model("Article", articleSchema);
 
 const postArticle = (req, res) => {
-  mongoClient.connect(urlDB, (err, db) => {
-    assert.equal(null, err);
-    const myquery = {
-      name: req.body.name,
-      age: req.body.age
-    };
-    res.send("Article Added");
-    db.collection(collectionDB).insertOne(myquery, (err, res) => {
-      assert.equal(null, err);
-      db.close();
+  const myquery = {
+    name: req.body.name,
+    age: req.body.age
+  };
+  Article.create(myquery)
+    .then(function(data) {
+      return res.json(data);
+    })
+    .catch(function(err) {
+      return res.json(err);
     });
-  });
 };
 
 module.exports = postArticle;
