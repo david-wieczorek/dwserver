@@ -11,6 +11,7 @@ const express = require("express"),
 
 app.use(helmet(), cors(), bodyParser.urlencoded({ extended: true }));
 
+// Mongoose Promise
 mongoose.Promise = global.Promise;
 var mongooseConnection = mongoose.connect("mongodb://localhost/dwdb", {
   useMongoClient: true
