@@ -1,23 +1,28 @@
 const mongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
-const config = require("./config");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-// DB Config
-const urlDB = config.mongodburl;
-const collectionDB = config.collection;
+const articleSchema = new Schema(
+  {
+    name: String,
+    age: Number
+  },
+  {
+    collection: "articles"
+  }
+);
+
+const Articles = mongoose.model("Articles", articleSchema);
 
 const getArticles = (req, res) => {
-  mongoClient.connect(urlDB, (err, db) => {
-    assert.equal(null, err);
-    db
-      .collection(collectionDB)
-      .find()
-      .toArray((err, result) => {
-        assert.equal(null, err);
-        res.json(result);
-        db.close();
-      });
-  });
+  Articles.find()
+    .then(function(data) {
+      return res.json(data);
+    })
+    .catch(function(err) {
+      return res.json(err);
+    });
 };
 
 module.exports = getArticles;
